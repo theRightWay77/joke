@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Котик спрашивает</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    #cat-container {
+      margin-bottom: 20px;
+    }
+
+    #cat-image {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    #question {
+      font-size: 28px;
+      margin: 20px 0;
+      color: #333;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    #yes-btn {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    #yes-btn:hover {
+      background-color: #45a049;
+    }
+
+    #no-btn {
+      background-color: #f44336;
+      color: white;
+      position: absolute;
+    }
+
+    #no-btn:hover {
+      background-color: #d32f2f;
+    }
+
+    /* Скрытие кнопок после клика по ДА */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="cat-container">
+    <img id="cat-image" src="askingOne.jpg" alt="Котик" />
+  </div>
+
+  <div id="question">Я самая лучшая?</div>
+
+  <div class="buttons">
+    <button id="yes-btn">ДА</button>
+    <button id="no-btn">НЕТ</button>
+  </div>
+
+  <script>
+    const catImage = document.getElementById('cat-image');
+    const questionEl = document.getElementById('question');
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
+    const buttonsContainer = document.querySelector('.buttons');
+
+    // Можно вставить ссылку на вторую картинку кота (например, довольного)
+    const happyCatUrl = 'kindOne.jpg'; // ← сюда позже вставите URL второй картинки
+
+    yesBtn.addEventListener('click', () => {
+      // Меняем надпись
+      questionEl.textContent = 'Правильный ответ 😺';
+      // Скрываем кнопки
+      buttonsContainer.classList.add('hidden');
+      // Меняем картинку (если задана)
+      if (happyCatUrl) {
+        catImage.src = happyCatUrl;
+      } else {
+        // Если не указали — просто делаем котика зелёным (для демонстрации)
+        catImage.style.backgroundColor = '#e8f5e9';
+        catImage.style.border = '4px solid #4caf50';
+      }
+    });
+
+    const angryCatUrl = 'angryOne.jpg';
+
+     noBtn.addEventListener('click', () => {
+      // Меняем надпись
+      questionEl.textContent = 'Ты выиграл битву, не войну';
+      // Скрываем кнопки
+      buttonsContainer.classList.add('hidden');
+      // Меняем картинку (если задана)
+      if (angryCatUrl) {
+        catImage.src = angryCatUrl;
+      } else {
+        // Если не указали — просто делаем котика зелёным (для демонстрации)
+        catImage.style.backgroundColor = '#e8f5e9';
+        catImage.style.border = '4px solid #4caf50';
+      }
+    });
+
+
+    noBtn.addEventListener('mouseover', () => {
+      // Перемещаем кнопку НЕТ в случайное место
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+
+      const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+
+      noBtn.style.left = randomX + 'px';
+      noBtn.style.top = randomY + 'px';
+    });
+  </script>
+</body>
+</html>
